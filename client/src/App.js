@@ -26,7 +26,7 @@ const styles=theme=>({
   },
   //프로그래스바
   progress: {
-    margin:theme.spacing.unit*2
+    margin:theme.spacing(2)
   }
 });
 
@@ -104,7 +104,7 @@ class App extends Component{
                     return (<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />); 
                   }) : 
                   <TableRow>
-                    <TableCell colspan="6" align="center">
+                    <TableCell colSpan="6" align="center">
                       <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
                     </TableCell>
                   </TableRow>
