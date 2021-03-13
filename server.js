@@ -37,7 +37,7 @@ app.get('/api/customers', (req,res) => {
     //디비 접근하기
     connection.query(
       //쿼리 날리기
-      "select * from CUSTOMER",
+      "select * from CUSTOMER where isDeleted =0",
       (err, rows, fields)=>{
         res.send(rows);
       }
@@ -49,7 +49,7 @@ app.get('/api/customers', (req,res) => {
 //이미지 파일 처리하는 부분
 app.use('/image', express.static('./upload'));//'./image' 말고 '/image'하니까 이미지 잘 출력된다......
 app.post('/api/customers', upload.single('image'), (req, res) =>{ // var대신 let을 사용한다. 
-  let sql ='insert into CUSTOMER values (null,?,?,?,?,?)';
+  let sql ='insert into CUSTOMER values (null,?,?,?,?,?,now(),0)';
   //let image ='/image/' + req.file.filename; //이렇게 하니까 사진은 디비에 올라가긴 하는데 깨져서 올라감...
   let image ='http://localhost:5000/image/' + req.file.filename;
   let name = req.body.name;
@@ -76,5 +76,16 @@ app.post('/api/customers', upload.single('image'), (req, res) =>{ // var대신 l
   );
 });
 
+
+//고객데이터 삭제 모듈 추가하기
+app.delete('/api/customers/:id', (req,res)=>{
+  let sql ='UPDATE CUSTOMER SET isDeleted =1 WHERE id =?';//삭제 완료 알려주는것
+  let params =[req.params.id];
+  connection.query(sql, params,
+    (err, rows, fields) => {
+        res.send(rows);
+    } 
+  )
+});
 
 app.listen(port, ()=> console.log(`listening on port ${port}`));
