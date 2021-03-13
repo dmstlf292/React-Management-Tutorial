@@ -22,6 +22,7 @@ class CustomerAdd extends React.Component{
         this.addCustomer()
             .then ((response) => {
                 console.log(response.data);
+                this.props.stateRefresh();
             })
         this.setState({
             file:null,
@@ -31,7 +32,8 @@ class CustomerAdd extends React.Component{
             job:'',
             fileName:''
         })
-        window.location.reload();
+        //window.location.reload();//화면 전체를 새로고침 하는것
+        
     }
 
     handleFileChange =(e) =>{//file[0]이게 아니라 files[0] 이거임@@@

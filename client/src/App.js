@@ -51,11 +51,32 @@ const styles=theme=>({
 //props는 변경될 수 없는 데이터를 명시할때 사용 & state 는 변경될 수 있는 데이터를 명시할 때 사용한다. 
 class App extends Component{
 
-  state={
-    customers : "",
-    //프로그래스바
-    completed : 0 //퍼센트를 알려주는것
+  // state={
+  //   customers : "",
+  //   //프로그래스바
+  //   completed : 0 //퍼센트를 알려주는것
+  // }
+
+  constructor(props){
+    super(props);
+    this.state={
+      customers:'',
+      completed:0
+    }
   }
+
+  stateRefresh =() =>{
+    //state 초기화 하기
+    this.setState({
+      customers:'',
+      completed:0
+    });
+    this.callApi()
+    .then(res => this.setState({customers:res}))
+    .catch(err => console.log(err));
+  }
+
+
 
   //실제 api 서버에 접근하도록 하기 (componentDidMount : 데이터 받아오는 작업)
   componentDidMount(){
@@ -115,7 +136,7 @@ class App extends Component{
               </TableBody>
             </Table>
         </Paper>
-        <CustomerAdd/>
+        <CustomerAdd stateRefresh={this.stateRefresh}/>
       </div> 
 
     );
