@@ -1,6 +1,8 @@
 # React-Management-Tutorial
+
 # 기능소개
-* 간단한 게시글 작성 및 삭제, 파일업로드 기능 구현
+* 간단한 파일업로드, 게시글 작성 및 삭제, 검색기능 구현
+
 # 개발언어 및 개발환경
 * React, Node.js & Vscode, Mysql
 
